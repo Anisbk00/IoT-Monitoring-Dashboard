@@ -1,0 +1,13 @@
+{
+  "name": "mqtt-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --hot index.ts"
+  },
+  "dependencies": {
+    "aedes": "^0.51.0",
+    "mqtt": "^5.10.1"
+  }
+}
