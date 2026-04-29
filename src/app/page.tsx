@@ -70,7 +70,7 @@ export default function Home() {
       let devicesData: { devices?: { deviceId: string }[] } | null = null;
       if (devicesRes.ok) {
         devicesData = await devicesRes.json();
-        setDevices(devicesData.devices || []);
+        setDevices(devicesData?.devices || []);
       }
 
       const alertsRes = await fetch('/api/alerts');
