@@ -3,7 +3,7 @@
 import { useEffect, useRef, useCallback, useState, lazy, Suspense } from 'react';
 import { useAppStore } from '@/lib/store';
 import { createClient } from '@/lib/supabase/client';
-import type { User, SensorReading, RealtimePayload, AlertItem } from '@/lib/types';
+import type { User, Device, SensorReading, RealtimePayload, AlertItem } from '@/lib/types';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 
 // Lazy-load heavy components to reduce initial compilation memory
@@ -67,7 +67,7 @@ export default function Home() {
   const fetchInitialData = useCallback(async () => {
     try {
       const devicesRes = await fetch('/api/devices');
-      let devicesData: { devices?: { deviceId: string }[] } | null = null;
+      let devicesData: { devices?: Device[] } | null = null;
       if (devicesRes.ok) {
         devicesData = await devicesRes.json();
         setDevices(devicesData?.devices || []);
