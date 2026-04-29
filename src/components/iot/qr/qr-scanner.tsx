@@ -12,7 +12,7 @@ interface QrScannerProps {
 
 export function QrScanner({ onScan, onError, onClose }: QrScannerProps) {
   const scannerRef = useRef<HTMLDivElement>(null);
-  const html5QrRef = useRef<{ stop: () => Promise<void>; clear: () => void; start: (...args: unknown[]) => Promise<void> } | null>(null);
+  const html5QrRef = useRef<InstanceType<typeof import('html5-qrcode').Html5Qrcode> | null>(null);
   const isRunningRef = useRef(false);
   const isStoppingRef = useRef(false);
   const mountedRef = useRef(true);
@@ -124,12 +124,12 @@ export function QrScanner({ onScan, onError, onClose }: QrScannerProps) {
 
       isRunningRef.current = true;
       setIsStarting(false);
-    } catch (err: any) {
+    } catch (err: unknown) {
       if (!mountedRef.current) return;
       setIsStarting(false);
       html5QrRef.current = null;
       isRunningRef.current = false;
-      const msg = err?.message || 'Camera access denied or not available';
+      const msg = err instanceof Error ? err.message : 'Camera access denied or not available';
       setErrorMsg(msg);
       onError?.(msg);
     }

@@ -202,7 +202,7 @@ export function SimulatorPanel() {
       await apiRegisterDevice(device);
 
       const now = Date.now();
-      const promises = [];
+      const promises: Promise<Response>[] = [];
       for (let i = 47; i >= 0; i--) {
         const ts = new Date(now - i * 5 * 60 * 1000).toISOString();
         const temp = round1(device.tempBaseline + (Math.random() - 0.5) * 4);
